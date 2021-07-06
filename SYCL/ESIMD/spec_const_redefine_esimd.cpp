@@ -2,7 +2,7 @@
 // REQUIRES: linux && gpu
 // RUN: %clangxx -fsycl %s -o %t.out
 // RUN: env SYCL_PI_TRACE=2 %GPU_RUN_PLACEHOLDER %t.out 2>&1 %GPU_CHECK_PLACEHOLDER
-// UNSUPPORTED: cuda
+// UNSUPPORTED: cuda || rocm
 
 //==----------- spec_const_redefine_esimd.cpp ------------------------------==//
 //

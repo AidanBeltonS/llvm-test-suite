@@ -7,7 +7,7 @@
 //===----------------------------------------------------------------------===//
 
 // REQUIRES: opencl-aot, ocloc, aoc, cpu, gpu, accelerator
-// UNSUPPORTED: cuda
+// UNSUPPORTED: cuda || rocm
 // CUDA is not compatible with SPIR.
 
 // 1-command compilation case

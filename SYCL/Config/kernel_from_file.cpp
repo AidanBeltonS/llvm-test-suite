@@ -1,4 +1,4 @@
-// UNSUPPORTED: cuda
+// UNSUPPORTED: cuda || rocm
 // CUDA does not support SPIR-V.
 
 // RUN: %clangxx %cxx_std_optionc++17 -fsycl-device-only -fno-sycl-use-bitcode -Xclang -fsycl-int-header=%t.h -c %s -o %t.spv -Xclang -verify-ignore-unexpected=note,warning -Wno-sycl-strict

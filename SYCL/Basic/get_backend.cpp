@@ -18,6 +18,7 @@ bool check(backend be) {
   case backend::opencl:
   case backend::level_zero:
   case backend::cuda:
+  case backend::rocm:
   case backend::host:
     return true;
   default:

@@ -3,7 +3,7 @@
 // RUN: %CPU_RUN_PLACEHOLDER %t.out
 // RUN: %GPU_RUN_PLACEHOLDER %t.out
 
-// UNSUPPORTED: cuda
+// UNSUPPORTED: cuda || rocm
 
 //==- handler.cpp - SYCL handler explicit memory operations test -*- C++-*--==//
 //

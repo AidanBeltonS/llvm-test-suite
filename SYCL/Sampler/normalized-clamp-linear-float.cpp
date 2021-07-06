@@ -4,7 +4,7 @@
 // RUN: %GPU_RUN_PLACEHOLDER %t.out %GPU_CHECK_PLACEHOLDER
 
 // UNSUPPORTED: level_zero && windows
-// XFAIL: cuda
+// XFAIL: cuda || rocm
 
 // LevelZero on Windows hangs with normalized coordinates. Waiting on fix.
 

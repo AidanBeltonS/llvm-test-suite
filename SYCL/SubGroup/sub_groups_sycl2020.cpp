@@ -1,6 +1,8 @@
 // RUN: %clangxx -fsycl -fsycl-targets=%sycl_triple %s -o %t.out
 // RUN: %CPU_RUN_PLACEHOLDER %t.out
 // RUN: %GPU_RUN_PLACEHOLDER %t.out
+// XFAIL: rocm
+// CUDA work around is not possible with ROCm, must go down regular path
 
 #include <sycl/sycl.hpp>
 

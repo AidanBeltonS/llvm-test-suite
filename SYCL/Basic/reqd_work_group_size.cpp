@@ -1,4 +1,4 @@
-// XFAIL: cuda
+// XFAIL: cuda || rocm
 // The negative test fails on CUDA.  It's not clear whether the CUDA backend
 // respects the reqd_work_group_size attribute.
 

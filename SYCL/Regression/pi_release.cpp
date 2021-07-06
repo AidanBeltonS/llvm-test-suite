@@ -1,4 +1,4 @@
-// REQUIRES: opencl || level_zero || cuda
+// REQUIRES: opencl || level_zero || cuda || rocm
 // RUN: %clangxx -fsycl  -fsycl-targets=%sycl_triple %s -o %t.out
 // RUN: env SYCL_PI_TRACE=-1 %CPU_RUN_PLACEHOLDER %t.out 2>&1 %CPU_CHECK_PLACEHOLDER
 // RUN: env SYCL_PI_TRACE=-1 %ACC_RUN_PLACEHOLDER %t.out 2>&1 %ACC_CHECK_PLACEHOLDER

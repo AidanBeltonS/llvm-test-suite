@@ -2,7 +2,7 @@
 // RUN: %CPU_RUN_PLACEHOLDER %t.out
 // RUN: %GPU_RUN_PLACEHOLDER %t.out
 // RUN: %ACC_RUN_PLACEHOLDER %t.out
-// UNSUPPORTED: level_zero, cuda
+// UNSUPPORTED: level_zero, cuda, rocm
 // REQUIRES: opencl, opencl_icd
 
 #include <CL/sycl.hpp>

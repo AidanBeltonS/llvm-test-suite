@@ -1,4 +1,4 @@
-// UNSUPPORTED: cuda
+// UNSUPPORTED: cuda || rocm
 // CUDA does not support printf.
 //
 // RUN: %clangxx -fsycl -fsycl-targets=%sycl_triple %s -o %t.out

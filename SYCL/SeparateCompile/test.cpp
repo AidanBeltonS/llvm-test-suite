@@ -1,4 +1,4 @@
-// UNSUPPORTED: cuda
+// UNSUPPORTED: cuda || rocm
 // CUDA does not support SPIR-V.
 //
 // >> ---- compile src1

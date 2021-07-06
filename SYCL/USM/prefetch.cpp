@@ -11,7 +11,7 @@
 // RUN: %GPU_RUN_PLACEHOLDER %t1.out
 // RUN: %ACC_RUN_PLACEHOLDER %t1.out
 
-// XFAIL: cuda
+// XFAIL: cuda || rocm
 
 #include <CL/sycl.hpp>
 
