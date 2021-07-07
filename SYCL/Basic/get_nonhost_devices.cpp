@@ -1,4 +1,4 @@
-// RUN: %clangxx -fsycl -fsycl-targets=%sycl_triple %mcpu %s -o %t.out
+// RUN: %clangxx -fsycl -fsycl-targets=%sycl_triple %s -o %t.out
 // RUN: %BE_RUN_PLACEHOLDER %t.out
 //
 // Check that the host device is not included in devices returned by

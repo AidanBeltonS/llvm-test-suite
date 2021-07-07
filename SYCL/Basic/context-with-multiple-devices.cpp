@@ -1,6 +1,6 @@
 // REQUIRES: accelerator, aoc
 
-// RUN: %clangxx -fsycl -fintelfpga -fsycl-unnamed-lambda %mcpu %s -o %t2.out
+// RUN: %clangxx -fsycl -fintelfpga -fsycl-unnamed-lambda %s -o %t2.out
 // RUN: env CL_CONFIG_CPU_EMULATE_DEVICES=2 %t2.out
 
 #include <CL/sycl.hpp>

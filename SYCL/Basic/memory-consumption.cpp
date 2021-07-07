@@ -1,4 +1,4 @@
-// RUN: %clangxx -fsycl %mcpu %s -o %t.out
+// RUN: %clangxx -fsycl %s -o %t.out
 // RUN: %GPU_RUN_PLACEHOLDER %t.out
 //
 // Issue #106: The test failing sporadically on OpenCL platform due to
