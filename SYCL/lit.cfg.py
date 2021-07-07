@@ -280,12 +280,17 @@ if config.rocm_platform == "":
 if config.rocm_platform not in supported_rocm_platforms:
     lit_config.error("Unknown ROCm platform '" + config.rocm_platform + "' supported platforms are " + ', '.join(supported_rocm_platforms))
 
-if config.sycl_be == 'cuda' or (config.sycl_be == 'rocm' and config.rocm_platforms == 'NVIDIA'):
+if config.sycl_be == 'cuda' or (config.sycl_be == 'rocm' and config.rocm_platform == 'NVIDIA'):
     config.substitutions.append( ('%sycl_triple',  "nvptx64-nvidia-cuda-sycldevice" ) )
-if config.sycl_be == 'AMD':
+elif config.sycl_be == 'rocm' and config.rocm_platform == 'AMD':
     config.substitutions.append( ('%sycl_triple',  "amdgcn-amd-amdhsa-sycldevice" ) )
 else:
     config.substitutions.append( ('%sycl_triple',  "spir64-unknown-unknown-sycldevice" ) )
+
+if config.sycl_be == 'rocm' and config.rocm_platform == 'AMD':
+    config.substitutions.append( ('%mcpu',  "-mcpu=gfx906" ) )
+else:
+    config.substitutions.append( ('%mcpu', "") )
 
 if find_executable('sycl-ls'):
     config.available_features.add('sycl-ls')
