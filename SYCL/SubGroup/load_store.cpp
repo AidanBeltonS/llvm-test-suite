@@ -192,10 +192,10 @@ int main() {
     std::cout << "Skipping test\n";
     return 0;
   }
-  std::string PlatformName =
-      Queue.get_device().get_platform().get_info<info::platform::name>();
+
   if (Queue.get_device().has_extension("cl_intel_subgroups") ||
-      PlatformName.find("CUDA") != std::string::npos) {
+      Queue.get_backend() == backend::cuda || 
+      Queue.get_backend() == backend::rocm) {
     typedef bool aligned_char __attribute__((aligned(16)));
     check<aligned_char>(Queue);
     typedef int aligned_int __attribute__((aligned(16)));
@@ -224,7 +224,8 @@ int main() {
     check<aligned_float, 16>(Queue);
   }
   if (Queue.get_device().has_extension("cl_intel_subgroups_short") ||
-      PlatformName.find("CUDA") != std::string::npos) {
+      Queue.get_backend() == backend::cuda || 
+      Queue.get_backend() == backend::rocm) {
     typedef short aligned_short __attribute__((aligned(16)));
     check<aligned_short>(Queue);
     check<aligned_short, 1>(Queue);
@@ -234,7 +235,8 @@ int main() {
     check<aligned_short, 8>(Queue);
     check<aligned_short, 16>(Queue);
     if (Queue.get_device().has_extension("cl_khr_fp16") ||
-        PlatformName.find("CUDA") != std::string::npos) {
+      Queue.get_backend() == backend::cuda || 
+      Queue.get_backend() == backend::rocm){
       typedef half aligned_half __attribute__((aligned(16)));
       check<aligned_half>(Queue);
       check<aligned_half, 1>(Queue);
@@ -246,7 +248,8 @@ int main() {
     }
   }
   if (Queue.get_device().has_extension("cl_intel_subgroups_long") ||
-      PlatformName.find("CUDA") != std::string::npos) {
+      Queue.get_backend() == backend::cuda || 
+      Queue.get_backend() == backend::rocm) {
     typedef long aligned_long __attribute__((aligned(16)));
     check<aligned_long>(Queue);
     check<aligned_long, 1>(Queue);
