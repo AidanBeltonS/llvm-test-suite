@@ -4,7 +4,6 @@
 // RUN: %CPU_RUN_PLACEHOLDER %t.out %CPU_CHECK_PLACEHOLDER
 // RUN: %GPU_RUN_PLACEHOLDER %t.out %GPU_CHECK_PLACEHOLDER
 
-
 /*
     This file sets up an image, initializes it with data,
     and verifies that the data is sampled correctly with a
