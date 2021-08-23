@@ -4,10 +4,8 @@
 // involved leads to multiple definition of AssertHappened structure due each
 // device image is statically linked against fallback libdevice.
 // RUN: %clangxx -DSYCL_DISABLE_FALLBACK_ASSERT=1 -fsycl -fsycl-device-code-split=per_kernel -fsycl-targets=%sycl_triple,spir64_x86_64-unknown-unknown-sycldevice %s -o %t.out
-// RUN: env SYCL_PI_TRACE=2 %CPU_RUN_PLACEHOLDER %t.out %CPU_CHECK_PLACEHOLDER
-//
-// RUN: %GPU_RUN_PLACEHOLDER %t.out
-// 
+// RUN: env SYCL_PI_TRACE=2 %GPU_RUN_PLACEHOLDER %t.out %GPU_CHECK_PLACEHOLDER
+
 
 #include <CL/sycl.hpp>
 
