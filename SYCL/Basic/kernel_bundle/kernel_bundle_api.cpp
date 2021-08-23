@@ -4,9 +4,6 @@
 // device image is statically linked against fallback libdevice.
 // RUN: %clangxx -DSYCL_DISABLE_FALLBACK_ASSERT=1 -fsycl -fsycl-device-code-split=per_kernel -fsycl-targets=%sycl_triple %s -o %t.out
 // RUN: env SYCL_PI_TRACE=2 %CPU_RUN_PLACEHOLDER %t.out %CPU_CHECK_PLACEHOLDER
-//
-// -fsycl-device-code-split is not supported for cuda
-// UNSUPPORTED: cuda || rocm
 
 #include <CL/sycl.hpp>
 
