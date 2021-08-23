@@ -184,7 +184,7 @@ if config.rocm_platform not in supported_rocm_platforms:
     lit_config.error("Unknown ROCm platform '" + config.rocm_platform + "' supported platforms are " + ', '.join(supported_rocm_platforms))
 
 if config.sycl_be == "rocm" and config.rocm_platform == "AMD":
-    mcpu_flag = '-mcpu=' + config.mcpu
+    mcpu_flag = '-mcpu=' + config.mcpu + ' '
 else:
     mcpu_flag = ""
 
