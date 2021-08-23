@@ -1,6 +1,6 @@
 // REQUIRES: cuda || rocm
 //
-// RUN: %clangxx -fsycl -fsycl-targets=%sycl_triple,spir64_x86_64-unknown-unknown-sycldevice -fsycl-device-code-split=per_source -I %S/Inputs -o %t.out %s %S/Inputs/split-per-source-second-file.cpp
+// RUN: %clangxx -fsycl -fsycl-targets=%sycl_triple,spir64-unknown-unknown-sycldevice -fsycl-device-code-split=per_source -I %S/Inputs -o %t.out %s %S/Inputs/split-per-source-second-file.cpp
 // RUN: %GPU_RUN_PLACEHOLDER %t.out
 // 
 
