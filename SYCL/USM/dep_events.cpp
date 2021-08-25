@@ -13,7 +13,7 @@
 // RUN: %ACC_RUN_PLACEHOLDER %t1.out
 //
 // XFAIL: cuda || rocm
-// TODO enable the test when cuda_piextUSMEnqueuePrefetch rocm_piextUSMEnqueuePrefetch starts handling flags
+// TODO enable the test when cuda_piextUSMEnqueuePrefetch and rocm_piextUSMEnqueuePrefetch starts handling flags
 
 #include <CL/sycl.hpp>
 
