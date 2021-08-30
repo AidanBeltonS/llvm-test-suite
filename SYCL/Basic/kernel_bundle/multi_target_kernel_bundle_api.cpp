@@ -3,7 +3,7 @@
 // Use of per-kernel device code split and linking the bundle with all images
 // involved leads to multiple definition of AssertHappened structure due each
 // device image is statically linked against fallback libdevice.
-// RUN: %clangxx -DSYCL_DISABLE_FALLBACK_ASSERT=1 -fsycl -fsycl-device-code-split=per_kernel -fsycl-targets=%sycl_triple,spir64_x86_64-unknown-unknown-sycldevice %s -o %t.out
+// RUN: %clangxx -DSYCL_DISABLE_FALLBACK_ASSERT=1 -fsycl -fsycl-device-code-split=per_kernel -fsycl-targets=%sycl_triple,spir64-unknown-unknown-sycldevice %s -o %t.out
 // RUN: env SYCL_PI_TRACE=2 %GPU_RUN_PLACEHOLDER %t.out %GPU_CHECK_PLACEHOLDER
 
 

@@ -1,6 +1,6 @@
 // REQUIRES: cuda || rocm
 //
-// RUN: %clangxx -fsycl -fsycl-targets=%sycl_triple,spir64_x86_64-unknown-unknown-sycldevice -fsycl-device-code-split=per_kernel -o %t.out %s
+// RUN: %clangxx -fsycl -fsycl-targets=%sycl_triple,spir64-unknown-unknown-sycldevice -fsycl-device-code-split=per_kernel -o %t.out %s
 // RUN: %GPU_RUN_PLACEHOLDER %t.out
 
 // Tests module splitting on cuda and rocm when built with multiple targets.
