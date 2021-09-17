@@ -1,5 +1,5 @@
-// UNSUPPORTED: cuda || hip
-// CUDA does not support device code splitting.
+// UNSUPPORTED: hip
+// HIP fails with memory access error
 //
 // RUN: %clangxx -fsycl -fsycl-targets=%sycl_triple -fsycl-device-code-split=per_kernel -o %t.out %s
 // RUN: %CPU_RUN_PLACEHOLDER %t.out
