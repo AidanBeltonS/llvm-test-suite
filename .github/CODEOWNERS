@@ -7,6 +7,7 @@ SYCL/AOT @AGindinson @dm-vodopyanov @AlexeySachkov @romanovvlad
 SYCL/AtomicRef @AGindinson 
 
 # SYCL RT specific tests
+SYCL/Assert @intel/llvm-reviewers-runtime
 SYCL/Basic @intel/llvm-reviewers-runtime
 SYCL/Config @intel/llvm-reviewers-runtime
 SYCL/FilterSelector @intel/llvm-reviewers-runtime
@@ -22,12 +23,13 @@ SYCL/DeviceCodeSplit @AlexeySachkov  @Fznamznon
 
 # Device library
 SYCL/DeviceLib @vzakhari
+SYCL/DeviceLib/ITTAnnotations @vzakhari @MrSidims @AGindinson
 
 # dot_product API
 SYCL/DotProduct @rdeodhar
 
 # Explicit SIMD
-SYCL/ESIMD @kbobrovs @DenisBakhvalov
+SYCL/ESIMD @kbobrovs @v-klochkov
 
 # Functor
 SYCL/Functor @AlexeySachkov
@@ -35,7 +37,7 @@ SYCL/Functor @AlexeySachkov
 # Group algorithms
 SYCL/GroupAlgorithm @Pennycook @AlexeySachkov
 SYCL/SubGroup @Pennycook @AlexeySachkov
-SYCL/GroupMask @Pennycook @vladimilaz
+SYCL/SubGroupMask @Pennycook @vladimilaz
 
 # Group local memory
 SYCL/GroupLocalMemory @sergey-semenov @Pennycook

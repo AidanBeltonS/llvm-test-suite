@@ -65,7 +65,7 @@ int checkHistogram(unsigned int *refHistogram, unsigned int *hist) {
 using namespace sycl::ext::intel::experimental::esimd;
 template <EsimdAtomicOpType Op, typename T, int n>
 ESIMD_INLINE void atomic_write(T *bins, simd<unsigned, n> offset,
-                               simd<T, n> src0, simd<ushort, n> pred) {
+                               simd<T, n> src0, simd_mask<n> pred) {
   simd<T, n> oldDst;
   simd<uintptr_t, n> vAddr(reinterpret_cast<uintptr_t>(bins));
   simd<uintptr_t, n> vOffset = offset;

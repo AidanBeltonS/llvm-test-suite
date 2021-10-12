@@ -1,6 +1,9 @@
 // RUN: %clangxx -fsycl -fsycl-targets=%sycl_triple %s -o %t.out
 // RUN: env SYCL_DEVICE_FILTER=%sycl_be %t.out
 //
+// Failing on HIP AMD
+// XFAIL: hip_amd
+//
 //==----------------- get_backend.cpp ------------------------==//
 // This is a test of get_backend().
 // Do not set SYCL_DEVICE_FILTER. We do not want the preferred
@@ -40,11 +43,6 @@ int main() {
 
       context c(plt);
       if (c.get_backend() != plt.get_backend()) {
-        return_fail();
-      }
-
-      program prog(c);
-      if (prog.get_backend() != plt.get_backend()) {
         return_fail();
       }
 
