@@ -22,8 +22,7 @@ void QueueAPIsReturnDiscardedEvent(sycl::queue Q) {
   sycl::range<1> range(BUFFER_SIZE);
 
   auto Dev = Q.get_device();
-  const int MemAdvice =
-      ((Dev.get_backend() == sycl::backend::ext_oneapi_cuda) ? 1 : 0);
+  const int MemAdvice = PI_MEM_ADVISE_REVERT;
   int *x = sycl::malloc_shared<int>(BUFFER_SIZE, Q);
   assert(x != nullptr);
   int *y = sycl::malloc_shared<int>(BUFFER_SIZE, Q);

@@ -36,6 +36,7 @@ int main() {
   }
 
   std::vector<int> valid_advices{
+      PI_MEM_ADVISE_REVERT,
       PI_MEM_ADVISE_CUDA_SET_READ_MOSTLY,
       PI_MEM_ADVISE_CUDA_UNSET_READ_MOSTLY,
       PI_MEM_ADVISE_CUDA_SET_PREFERRED_LOCATION,
