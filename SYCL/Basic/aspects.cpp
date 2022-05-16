@@ -54,8 +54,8 @@ int main() {
     if (plt.has(aspect::fp64)) {
       std::cout << "  fp64" << std::endl;
     }
-    if (plt.has(aspect::bf16)) {
-      std::cout << " bf16" << std::endl;
+    if (plt.has(aspect::ext_oneapi_bfloat16)) {
+      std::cout << " ext_oneapi_bfloat16" << std::endl;
     }
     if (plt.has(aspect::int64_base_atomics)) {
       std::cout << "  base atomic operations" << std::endl;
