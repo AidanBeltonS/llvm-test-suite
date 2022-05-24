@@ -48,6 +48,21 @@ make check-sycl-all
 
 ```
 
+To run test with single backend:
+
+```
+# Configure
+cmake \
+ -DCMAKE_CXX_COMPILER=clang++ \
+ -DTEST_SUITE_SUBDIRS=SYCL \
+ -DSYCL_BE="opencl" \
+ -DSYCL_TARGET_DEVICES="host" \
+ ..
+
+# Build and Run
+make check
+```
+
 To use ninja build run as:
 
 ```
@@ -149,6 +164,7 @@ unavailable.
  * **ocloc**, **opencl-aot** - Specific AOT tool availability;
  * **level_zero_dev_kit** - Level_Zero headers and libraries availability;
  * **gpu-intel-dg1** - Intel GPU DG1 availability;
+ * **gpu-intel-dg2** - Intel GPU DG2 availability;
  * **gpu-intel-pvc** - Intel GPU PVC availability;
  * **dump_ir**: - compiler can / cannot dump IR;
 
@@ -163,6 +179,9 @@ configure specific single test execution in the command line:
  * **sycl_be** - SYCL backend to be used (opencl, ext_oneapi_level_zero,
    ext_oneapi_cuda, ext_oneapi_hip, ext_oneapi_intel_emulator);
  * **dump_ir** - if IR dumping is supported for compiler (True, False);
+ * **compatibility_testing** - forces LIT infra to skip the tests compilation
+   to support compatibility testing (a SYCL application is built with one
+   version of SYCL compiler and then run with different SYCL RT version);
  * **gpu_aot_target_opts** - defines additional options which are passed to AOT
    compilation command line for GPU device. It can be also set by CMake variable
    GPU_AOT_TARGET_OPTS. If not specified "-device *" value is used.
@@ -172,6 +191,9 @@ configure specific single test execution in the command line:
    device selector to ensure that. Use SYCL_DEVICE_ALLOWLIST or
    SYCL_DEVICE_FILTER to get proper configuration (see
    [EnvironmentVariables.md](https://github.com/intel/llvm/blob/sycl/sycl/doc/EnvironmentVariables.md));
+ * **gpu-intel-dg2** - tells LIT infra that Intel GPU DG2 is present in the
+   system. It is developer / CI infra responsibility to make sure that the
+   device is available in the system.
  * **gpu-intel-pvc** - tells LIT infra that Intel GPU PVC is present in the
    system. It is developer / CI infra responsibility to make sure that the
    device is available in the system.

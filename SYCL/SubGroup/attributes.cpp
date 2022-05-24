@@ -1,7 +1,8 @@
-// RUN: %clangxx -fsycl -fsycl-targets=%sycl_triple %s -o %t.out
-// RUN: %HOST_RUN_PLACEHOLDER %t.out
+// Test fails on Opencl CPU backend, disable temporarily to resolve the issue.
+// UNSUPPORTED: opencl && cpu
+// RUN: %clangxx -fsycl -fsycl-targets=%sycl_triple -fsycl-device-code-split=per_kernel %s -o %t.out
 // RUN: %CPU_RUN_PLACEHOLDER %t.out
-// RUNx: %GPU_RUN_PLACEHOLDER %t.out
+// RUN: %GPU_RUN_PLACEHOLDER %t.out
 // RUN: %ACC_RUN_PLACEHOLDER %t.out
 //==------- attributes.cpp - SYCL sub_group attributes test ----*- C++ -*---==//
 //
@@ -73,6 +74,8 @@ int main() {
     for (const auto SGSize : SGSizes) {
       // Get the previous power of 2
       auto ReqdSize = flp2(SGSize);
+
+      std::cout << "Run for " << ReqdSize << " required workgroup size.\n";
 
       // Store the `cl::sycl::kernel` into a vector because `cl::sycl::kernel`
       // doesn't have default constructor
