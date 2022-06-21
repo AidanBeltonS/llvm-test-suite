@@ -76,9 +76,7 @@ int test_strideN(size_t stride) {
 
     myQueue.submit([&](handler &cgh) {
       auto out_ptr = out_buf.get_access<access::mode::write>(cgh);
-      accessor<cl::sycl::cl_int, 1, access::mode::read_write,
-               access::target::local>
-          local_acc(range<1>(16), cgh);
+      local_accessor<cl::sycl::cl_int, 1> local_acc(range<1>(16), cgh);
 
       // Create work-groups with 16 work items in each group.
       auto myRange = nd_range<1>(range<1>(nElems), range<1>(workGroupSize));
