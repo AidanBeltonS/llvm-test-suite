@@ -67,29 +67,50 @@ template <typename T> bool almost_equal_scalar(T x, T y, int ulp) {
          std::abs(x - y) < std::numeric_limits<T>::min();
 }
 
+template <typename T> T complex_magnitude(std::complex<T> a) {
+  return std::sqrt(a.real() * a.real() + a.imag() * a.imag());
+}
+
+template <typename T> T complex_magnitude(experimental::complex<T> a) {
+  return std::sqrt(a.real() * a.real() + a.imag() * a.imag());
+}
+
+template <typename T, typename U> inline bool is_nan_or_inf(T x, U y) {
+  return (std::isnan(x.real()) && std::isnan(y.real())) ||
+         (std::isnan(x.imag()) && std::isnan(y.imag())) ||
+         (std::isinf(x.real()) && std::isinf(y.real())) ||
+         (std::isinf(x.imag()) && std::isinf(y.imag()));
+}
+
 template <typename T>
 bool almost_equal_cplx(experimental::complex<T> x, experimental::complex<T> y,
                        int ulp) {
-  return almost_equal_scalar(x.real(), y.real(), ulp) &&
-         almost_equal_scalar(x.imag(), y.imag(), ulp);
+  auto diff = complex_magnitude(x - y);
+  return diff <= std::numeric_limits<T>::epsilon() * std::abs(x + y) * ulp ||
+         diff < std::numeric_limits<T>::min() || is_nan_or_inf(x, y);
 }
 
 template <typename T>
 bool almost_equal_cplx(experimental::complex<T> x, std::complex<T> y, int ulp) {
-  return almost_equal_scalar(x.real(), y.real(), ulp) &&
-         almost_equal_scalar(x.imag(), y.imag(), ulp);
+  auto stdx = std::complex{x.real(), x.imag()};
+  auto diff = complex_magnitude(stdx - y);
+  return diff <= std::numeric_limits<T>::epsilon() * std::abs(stdx + y) * ulp ||
+         diff < std::numeric_limits<T>::min() || is_nan_or_inf(x, y);
 }
 
 template <typename T>
 bool almost_equal_cplx(std::complex<T> x, experimental::complex<T> y, int ulp) {
-  return almost_equal_scalar(x.real(), y.real(), ulp) &&
-         almost_equal_scalar(x.imag(), y.imag(), ulp);
+  auto stdy = std::complex{y.real(), y.imag()};
+  auto diff = complex_magnitude(x - stdy);
+  return diff <= std::numeric_limits<T>::epsilon() * std::abs(x + stdy) * ulp ||
+         diff < std::numeric_limits<T>::min() || is_nan_or_inf(x, y);
 }
 
 template <typename T>
 bool almost_equal_cplx(std::complex<T> x, std::complex<T> y, int ulp) {
-  return almost_equal_scalar(x.real(), y.real(), ulp) &&
-         almost_equal_scalar(x.imag(), y.imag(), ulp);
+  auto diff = complex_magnitude(x - y);
+  return diff <= std::numeric_limits<T>::epsilon() * std::abs(x + y) * ulp ||
+         diff < std::numeric_limits<T>::min() || is_nan_or_inf(x, y);
 }
 
 // Helpers for testing half
