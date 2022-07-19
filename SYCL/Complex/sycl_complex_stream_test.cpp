@@ -60,19 +60,13 @@ int main() {
 
   bool test_passes = true;
 
-  // CHECK: (1.5,-1)
-  // CHECK: (1.5,-1)
-  // CHECK: (1.5,-1)
+  // CHECK-COUNT-3: (1.5,-1)
   test_passes &=
       test_valid_types<test_sycl_stream_operator>(Q, cmplx(1.5, -1.0));
-  // CHECK: (inf,inf)
-  // CHECK: (inf,inf)
-  // CHECK: (inf,inf)
+  // CHECK-COUNT-3: (inf,inf)
   test_passes &=
       test_valid_types<test_sycl_stream_operator>(Q, cmplx(INFINITY, INFINITY));
-  // CHECK: (nan,nan)
-  // CHECK: (nan,nan)
-  // CHECK: (nan,nan)
+  // CHECK-COUNT-3: (nan,nan)
   test_passes &=
       test_valid_types<test_sycl_stream_operator>(Q, cmplx(NAN, NAN));
 
@@ -89,5 +83,5 @@ int main() {
   if (!test_passes)
     std::cerr << "Stream operator with complex test fails\n";
 
-  return 0;
+  return !test_passes;
 }

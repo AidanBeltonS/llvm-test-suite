@@ -9,8 +9,8 @@ using namespace sycl::ext::oneapi;
 
 #define SYCL_CPLX_TOL_ULP 5
 
-#define INFINITYd double(INFINITY)
-#define NANd double(NAN)
+constexpr double INFINITYd(INFINITY);
+constexpr double NANd(NAN);
 
 template <typename T = double> struct cmplx {
   cmplx(T real, T imag) : re(real), im(imag) {}
@@ -59,7 +59,8 @@ bool test_valid_types(argsT... args) {
 template <typename T> bool almost_equal_scalar(T x, T y, int ulp) {
   if (std::isnan(x) && std::isnan(y))
     return true;
-  else if (std::isinf(x) && std::isinf(y))
+
+  if (std::isinf(x) && std::isinf(y))
     return true;
 
   return std::abs(x - y) <=

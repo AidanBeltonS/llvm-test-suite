@@ -36,57 +36,9 @@ template <template <typename> typename test_struct> struct test_cases {
   }
 };
 
-// test_add
-template <>
-vector<pair<cmplx<double>, cmplx<double>>> test_cases<test_add>::test_values = {
-    pair(cmplx(-1, 1), cmplx(1, 1)),  pair(cmplx(-1, 1), cmplx(-1, 1)),
-    pair(cmplx(-1, 1), cmplx(1, -1)), pair(cmplx(-1, 1), cmplx(-1, -1)),
-
-    pair(cmplx(1, 1), cmplx(-1, 1)),  pair(cmplx(-1, 1), cmplx(-1, 1)),
-    pair(cmplx(1, -1), cmplx(-1, 1)), pair(cmplx(-1, -1), cmplx(-1, 1)),
-};
-
-template <> const char *test_cases<test_add>::test_name = "addition test";
-
-// test_sub
-template <>
-vector<pair<cmplx<double>, cmplx<double>>> test_cases<test_sub>::test_values = {
-    pair(cmplx(-1, 1), cmplx(1, 1)),  pair(cmplx(-1, 1), cmplx(-1, 1)),
-    pair(cmplx(-1, 1), cmplx(1, -1)), pair(cmplx(-1, 1), cmplx(-1, -1)),
-
-    pair(cmplx(1, 1), cmplx(-1, 1)),  pair(cmplx(-1, 1), cmplx(-1, 1)),
-    pair(cmplx(1, -1), cmplx(-1, 1)), pair(cmplx(-1, -1), cmplx(-1, 1)),
-};
-
-template <> const char *test_cases<test_sub>::test_name = "subtraction test";
-
-// test_mul
-template <>
-vector<pair<cmplx<double>, cmplx<double>>> test_cases<test_mul>::test_values = {
-    pair(cmplx(-1, 1), cmplx(1, 1)),  pair(cmplx(-1, 1), cmplx(-1, 1)),
-    pair(cmplx(-1, 1), cmplx(1, -1)), pair(cmplx(-1, 1), cmplx(-1, -1)),
-
-    pair(cmplx(1, 1), cmplx(-1, 1)),  pair(cmplx(-1, 1), cmplx(-1, 1)),
-    pair(cmplx(1, -1), cmplx(-1, 1)), pair(cmplx(-1, -1), cmplx(-1, 1)),
-};
-template <> const char *test_cases<test_mul>::test_name = "multiplication test";
-
-// test_div
-template <>
-vector<pair<cmplx<double>, cmplx<double>>> test_cases<test_div>::test_values = {
-    pair(cmplx(-1, 1), cmplx(1, 1)),  pair(cmplx(-1, 1), cmplx(-1, 1)),
-    pair(cmplx(-1, 1), cmplx(1, -1)), pair(cmplx(-1, 1), cmplx(-1, -1)),
-
-    pair(cmplx(1, 1), cmplx(-1, 1)),  pair(cmplx(-1, 1), cmplx(-1, 1)),
-    pair(cmplx(1, -1), cmplx(-1, 1)), pair(cmplx(-1, -1), cmplx(-1, 1)),
-};
-
-template <> const char *test_cases<test_div>::test_name = "division test";
-
-// test_add_assign
-template <>
+template <template <typename> typename test_struct>
 vector<pair<cmplx<double>, cmplx<double>>>
-    test_cases<test_add_assign>::test_values = {
+    test_cases<test_struct>::test_values = {
         pair(cmplx(-1, 1), cmplx(1, 1)),  pair(cmplx(-1, 1), cmplx(-1, 1)),
         pair(cmplx(-1, 1), cmplx(1, -1)), pair(cmplx(-1, 1), cmplx(-1, -1)),
 
@@ -94,48 +46,31 @@ vector<pair<cmplx<double>, cmplx<double>>>
         pair(cmplx(1, -1), cmplx(-1, 1)), pair(cmplx(-1, -1), cmplx(-1, 1)),
 };
 
+// test_add
+template <> const char *test_cases<test_add>::test_name = "addition test";
+
+// test_sub
+template <> const char *test_cases<test_sub>::test_name = "subtraction test";
+
+// test_mul
+template <> const char *test_cases<test_mul>::test_name = "multiplication test";
+
+// test_div
+template <> const char *test_cases<test_div>::test_name = "division test";
+
+// test_add_assign
 template <>
 const char *test_cases<test_add_assign>::test_name = "addition assign test";
 
 // test_sub_assign
 template <>
-vector<pair<cmplx<double>, cmplx<double>>>
-    test_cases<test_sub_assign>::test_values = {
-        pair(cmplx(-1, 1), cmplx(1, 1)),  pair(cmplx(-1, 1), cmplx(-1, 1)),
-        pair(cmplx(-1, 1), cmplx(1, -1)), pair(cmplx(-1, 1), cmplx(-1, -1)),
-
-        pair(cmplx(1, 1), cmplx(-1, 1)),  pair(cmplx(-1, 1), cmplx(-1, 1)),
-        pair(cmplx(1, -1), cmplx(-1, 1)), pair(cmplx(-1, -1), cmplx(-1, 1)),
-};
-
-template <>
 const char *test_cases<test_sub_assign>::test_name = "subtraction assign test";
 
 // test_mul_assign
-template <>
-vector<pair<cmplx<double>, cmplx<double>>>
-    test_cases<test_mul_assign>::test_values = {
-        pair(cmplx(-1, 1), cmplx(1, 1)),  pair(cmplx(-1, 1), cmplx(-1, 1)),
-        pair(cmplx(-1, 1), cmplx(1, -1)), pair(cmplx(-1, 1), cmplx(-1, -1)),
-
-        pair(cmplx(1, 1), cmplx(-1, 1)),  pair(cmplx(-1, 1), cmplx(-1, 1)),
-        pair(cmplx(1, -1), cmplx(-1, 1)), pair(cmplx(-1, -1), cmplx(-1, 1)),
-};
-
 template <>
 const char *test_cases<test_mul_assign>::test_name =
     "muliplication assign test";
 
 // test_div_assign
-template <>
-vector<pair<cmplx<double>, cmplx<double>>>
-    test_cases<test_div_assign>::test_values = {
-        pair(cmplx(-1, 1), cmplx(1, 1)),  pair(cmplx(-1, 1), cmplx(-1, 1)),
-        pair(cmplx(-1, 1), cmplx(1, -1)), pair(cmplx(-1, 1), cmplx(-1, -1)),
-
-        pair(cmplx(1, 1), cmplx(-1, 1)),  pair(cmplx(-1, 1), cmplx(-1, 1)),
-        pair(cmplx(1, -1), cmplx(-1, 1)), pair(cmplx(-1, -1), cmplx(-1, 1)),
-};
-
 template <>
 const char *test_cases<test_div_assign>::test_name = "division assign test";

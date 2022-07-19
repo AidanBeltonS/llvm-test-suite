@@ -32,6 +32,7 @@ template <typename T> class test_polar;
 // Values are stored in the highest precision type, in this case that is double
 
 template <template <typename> typename test_struct> struct test_cases {
+  // Default test cases
   static vector<cmplx<double>> std_test_values;
 
   static const char *test_name;
@@ -50,9 +51,8 @@ template <template <typename> typename test_struct> struct test_cases {
   }
 };
 
-// test_acos
-template <>
-vector<cmplx<double>> test_cases<test_acos>::std_test_values = {
+template <template <typename> typename test_struct>
+vector<cmplx<double>> test_cases<test_struct>::std_test_values = {
     cmplx(1, 1),
     cmplx(-1, 1),
     cmplx(1, -1),
@@ -69,405 +69,64 @@ vector<cmplx<double>> test_cases<test_acos>::std_test_values = {
     cmplx(INFINITYd, NANd),
 };
 
+// test_acos
 template <> const char *test_cases<test_acos>::test_name = "acos test";
 
 // test_asin
-template <>
-vector<cmplx<double>> test_cases<test_asin>::std_test_values = {
-    cmplx(1, 1),
-    cmplx(-1, 1),
-    cmplx(1, -1),
-    cmplx(-1, -1),
-    cmplx(INFINITYd, 2.02),
-    cmplx(4.42, INFINITYd),
-    cmplx(INFINITYd, INFINITYd),
-    cmplx(NANd, 2.02),
-    cmplx(4.42, NANd),
-    cmplx(NANd, NANd),
-    cmplx(NANd, INFINITYd),
-    cmplx(INFINITYd, NANd),
-    cmplx(NANd, INFINITYd),
-    cmplx(INFINITYd, NANd),
-};
-
 template <> const char *test_cases<test_asin>::test_name = "asin test";
 
 // test_atan
-template <>
-vector<cmplx<double>> test_cases<test_atan>::std_test_values = {
-    cmplx(1, 1),
-    cmplx(-1, 1),
-    cmplx(1, -1),
-    cmplx(-1, -1),
-    cmplx(INFINITYd, 2.02),
-    cmplx(4.42, INFINITYd),
-    cmplx(INFINITYd, INFINITYd),
-    cmplx(NANd, 2.02),
-    cmplx(4.42, NANd),
-    cmplx(NANd, NANd),
-    cmplx(NANd, INFINITYd),
-    cmplx(INFINITYd, NANd),
-    cmplx(NANd, INFINITYd),
-    cmplx(INFINITYd, NANd),
-};
-
 template <> const char *test_cases<test_atan>::test_name = "atan test";
 
 // test_acosh
-template <>
-vector<cmplx<double>> test_cases<test_acosh>::std_test_values = {
-    cmplx(1, 1),
-    cmplx(-1, 1),
-    cmplx(1, -1),
-    cmplx(-1, -1),
-    cmplx(INFINITYd, 2.02),
-    cmplx(4.42, INFINITYd),
-    cmplx(INFINITYd, INFINITYd),
-    cmplx(NANd, 2.02),
-    cmplx(4.42, NANd),
-    cmplx(NANd, NANd),
-    cmplx(NANd, INFINITYd),
-    cmplx(INFINITYd, NANd),
-    cmplx(NANd, INFINITYd),
-    cmplx(INFINITYd, NANd),
-};
-
 template <> const char *test_cases<test_acosh>::test_name = "acosh test";
 
 // test_asinh
-template <>
-vector<cmplx<double>> test_cases<test_asinh>::std_test_values = {
-    cmplx(1, 1),
-    cmplx(-1, 1),
-    cmplx(1, -1),
-    cmplx(-1, -1),
-    cmplx(INFINITYd, 2.02),
-    cmplx(4.42, INFINITYd),
-    cmplx(INFINITYd, INFINITYd),
-    cmplx(NANd, 2.02),
-    cmplx(4.42, NANd),
-    cmplx(NANd, NANd),
-    cmplx(NANd, INFINITYd),
-    cmplx(INFINITYd, NANd),
-    cmplx(NANd, INFINITYd),
-    cmplx(INFINITYd, NANd),
-};
-
 template <> const char *test_cases<test_asinh>::test_name = "asinh test";
 
 // test_atanh
-template <>
-vector<cmplx<double>> test_cases<test_atanh>::std_test_values = {
-    cmplx(1, 1),
-    cmplx(-1, 1),
-    cmplx(1, -1),
-    cmplx(-1, -1),
-    cmplx(INFINITYd, 2.02),
-    cmplx(4.42, INFINITYd),
-    cmplx(INFINITYd, INFINITYd),
-    cmplx(NANd, 2.02),
-    cmplx(4.42, NANd),
-    cmplx(NANd, NANd),
-    cmplx(NANd, INFINITYd),
-    cmplx(INFINITYd, NANd),
-    cmplx(NANd, INFINITYd),
-    cmplx(INFINITYd, NANd),
-};
-
 template <> const char *test_cases<test_atanh>::test_name = "atanh test";
 
 // test_conj
-template <>
-vector<cmplx<double>> test_cases<test_conj>::std_test_values = {
-    cmplx(1, 1),
-    cmplx(-1, 1),
-    cmplx(1, -1),
-    cmplx(-1, -1),
-    cmplx(INFINITYd, 2.02),
-    cmplx(4.42, INFINITYd),
-    cmplx(INFINITYd, INFINITYd),
-    cmplx(NANd, 2.02),
-    cmplx(4.42, NANd),
-    cmplx(NANd, NANd),
-    cmplx(NANd, INFINITYd),
-    cmplx(INFINITYd, NANd),
-    cmplx(NANd, INFINITYd),
-    cmplx(INFINITYd, NANd),
-};
-
 template <> const char *test_cases<test_conj>::test_name = "conj test";
 
 // test_cos
-template <>
-vector<cmplx<double>> test_cases<test_cos>::std_test_values = {
-    cmplx(1, 1),
-    cmplx(-1, 1),
-    cmplx(1, -1),
-    cmplx(-1, -1),
-    cmplx(INFINITYd, 2.02),
-    cmplx(4.42, INFINITYd),
-    cmplx(INFINITYd, INFINITYd),
-    cmplx(NANd, 2.02),
-    cmplx(4.42, NANd),
-    cmplx(NANd, NANd),
-    cmplx(NANd, INFINITYd),
-    cmplx(INFINITYd, NANd),
-    cmplx(NANd, INFINITYd),
-    cmplx(INFINITYd, NANd),
-};
-
 template <> const char *test_cases<test_cos>::test_name = "cos test";
 
 // test_cosh
-template <>
-vector<cmplx<double>> test_cases<test_cosh>::std_test_values = {
-    cmplx(1, 1),
-    cmplx(-1, 1),
-    cmplx(1, -1),
-    cmplx(-1, -1),
-    cmplx(INFINITYd, 2.02),
-    cmplx(4.42, INFINITYd),
-    cmplx(INFINITYd, INFINITYd),
-    cmplx(NANd, 2.02),
-    cmplx(4.42, NANd),
-    cmplx(NANd, NANd),
-    cmplx(NANd, INFINITYd),
-    cmplx(INFINITYd, NANd),
-    cmplx(NANd, INFINITYd),
-    cmplx(INFINITYd, NANd),
-};
-
 template <> const char *test_cases<test_cosh>::test_name = "cosh test";
 
 // test_exp
-template <>
-vector<cmplx<double>> test_cases<test_exp>::std_test_values = {
-    cmplx(1, 1),
-    cmplx(-1, 1),
-    cmplx(1, -1),
-    cmplx(-1, -1),
-    cmplx(INFINITYd, 2.02),
-    cmplx(4.42, INFINITYd),
-    cmplx(INFINITYd, INFINITYd),
-    cmplx(NANd, 2.02),
-    cmplx(4.42, NANd),
-    cmplx(NANd, NANd),
-    cmplx(NANd, INFINITYd),
-    cmplx(INFINITYd, NANd),
-    cmplx(NANd, INFINITYd),
-    cmplx(INFINITYd, NANd),
-};
-
 template <> const char *test_cases<test_exp>::test_name = "exp test";
 
 // test_log
-template <>
-vector<cmplx<double>> test_cases<test_log>::std_test_values = {
-    cmplx(1, 1),
-    cmplx(-1, 1),
-    cmplx(1, -1),
-    cmplx(-1, -1),
-    cmplx(INFINITYd, 2.02),
-    cmplx(4.42, INFINITYd),
-    cmplx(INFINITYd, INFINITYd),
-    cmplx(NANd, 2.02),
-    cmplx(4.42, NANd),
-    cmplx(NANd, NANd),
-    cmplx(NANd, INFINITYd),
-    cmplx(INFINITYd, NANd),
-    cmplx(NANd, INFINITYd),
-    cmplx(INFINITYd, NANd),
-};
-
 template <> const char *test_cases<test_log>::test_name = "log test";
 
 // test_log10
-template <>
-vector<cmplx<double>> test_cases<test_log10>::std_test_values = {
-    cmplx(1, 1),
-    cmplx(-1, 1),
-    cmplx(1, -1),
-    cmplx(-1, -1),
-    cmplx(INFINITYd, 2.02),
-    cmplx(4.42, INFINITYd),
-    cmplx(INFINITYd, INFINITYd),
-    cmplx(NANd, 2.02),
-    cmplx(4.42, NANd),
-    cmplx(NANd, NANd),
-    cmplx(NANd, INFINITYd),
-    cmplx(INFINITYd, NANd),
-    cmplx(NANd, INFINITYd),
-    cmplx(INFINITYd, NANd),
-};
-
 template <> const char *test_cases<test_log10>::test_name = "log10 test";
 
 // test_proj
-template <>
-vector<cmplx<double>> test_cases<test_proj>::std_test_values = {
-    cmplx(1, 1),
-    cmplx(-1, 1),
-    cmplx(1, -1),
-    cmplx(-1, -1),
-    cmplx(INFINITYd, 2.02),
-    cmplx(4.42, INFINITYd),
-    cmplx(INFINITYd, INFINITYd),
-    cmplx(NANd, 2.02),
-    cmplx(4.42, NANd),
-    cmplx(NANd, NANd),
-    cmplx(NANd, INFINITYd),
-    cmplx(INFINITYd, NANd),
-    cmplx(NANd, INFINITYd),
-    cmplx(INFINITYd, NANd),
-};
-
 template <> const char *test_cases<test_proj>::test_name = "proj test";
 
 // test_sin
-template <>
-vector<cmplx<double>> test_cases<test_sin>::std_test_values = {
-    cmplx(1, 1),
-    cmplx(-1, 1),
-    cmplx(1, -1),
-    cmplx(-1, -1),
-    cmplx(INFINITYd, 2.02),
-    cmplx(4.42, INFINITYd),
-    cmplx(INFINITYd, INFINITYd),
-    cmplx(NANd, 2.02),
-    cmplx(4.42, NANd),
-    cmplx(NANd, NANd),
-    cmplx(NANd, INFINITYd),
-    cmplx(INFINITYd, NANd),
-    cmplx(NANd, INFINITYd),
-    cmplx(INFINITYd, NANd),
-};
-
 template <> const char *test_cases<test_sin>::test_name = "sin test";
 
 // test_sinh
-template <>
-vector<cmplx<double>> test_cases<test_sinh>::std_test_values = {
-    cmplx(1, 1),
-    cmplx(-1, 1),
-    cmplx(1, -1),
-    cmplx(-1, -1),
-    cmplx(INFINITYd, 2.02),
-    cmplx(4.42, INFINITYd),
-    cmplx(INFINITYd, INFINITYd),
-    cmplx(NANd, 2.02),
-    cmplx(4.42, NANd),
-    cmplx(NANd, NANd),
-    cmplx(NANd, INFINITYd),
-    cmplx(INFINITYd, NANd),
-    cmplx(NANd, INFINITYd),
-    cmplx(INFINITYd, NANd),
-};
-
 template <> const char *test_cases<test_sinh>::test_name = "sinh test";
 
 // test_sqrt
-template <>
-vector<cmplx<double>> test_cases<test_sqrt>::std_test_values = {
-    cmplx(1, 1),
-    cmplx(-1, 1),
-    cmplx(1, -1),
-    cmplx(-1, -1),
-    cmplx(INFINITYd, 2.02),
-    cmplx(4.42, INFINITYd),
-    cmplx(INFINITYd, INFINITYd),
-    cmplx(NANd, 2.02),
-    cmplx(4.42, NANd),
-    cmplx(NANd, NANd),
-    cmplx(NANd, INFINITYd),
-    cmplx(INFINITYd, NANd),
-    cmplx(NANd, INFINITYd),
-    cmplx(INFINITYd, NANd),
-};
-
 template <> const char *test_cases<test_sqrt>::test_name = "sqrt test";
 
 // test_tan
-template <>
-vector<cmplx<double>> test_cases<test_tan>::std_test_values = {
-    cmplx(1, 1),
-    cmplx(-1, 1),
-    cmplx(1, -1),
-    cmplx(-1, -1),
-    cmplx(INFINITYd, 2.02),
-    cmplx(4.42, INFINITYd),
-    cmplx(INFINITYd, INFINITYd),
-    cmplx(NANd, 2.02),
-    cmplx(4.42, NANd),
-    cmplx(NANd, NANd),
-    cmplx(NANd, INFINITYd),
-    cmplx(INFINITYd, NANd),
-    cmplx(NANd, INFINITYd),
-    cmplx(INFINITYd, NANd),
-};
-
 template <> const char *test_cases<test_tan>::test_name = "tan test";
 
 // test_tanh
-template <>
-vector<cmplx<double>> test_cases<test_tanh>::std_test_values = {
-    cmplx(1, 1),
-    cmplx(-1, 1),
-    cmplx(1, -1),
-    cmplx(-1, -1),
-    cmplx(INFINITYd, 2.02),
-    cmplx(4.42, INFINITYd),
-    cmplx(INFINITYd, INFINITYd),
-    cmplx(NANd, 2.02),
-    cmplx(4.42, NANd),
-    cmplx(NANd, NANd),
-    cmplx(NANd, INFINITYd),
-    cmplx(INFINITYd, NANd),
-    cmplx(NANd, INFINITYd),
-    cmplx(INFINITYd, NANd),
-};
-
 template <> const char *test_cases<test_tanh>::test_name = "tanh test";
 
 // test_abs
-template <>
-vector<cmplx<double>> test_cases<test_abs>::std_test_values = {
-    cmplx(1, 1),
-    cmplx(-1, 1),
-    cmplx(1, -1),
-    cmplx(-1, -1),
-    cmplx(INFINITYd, 2.02),
-    cmplx(4.42, INFINITYd),
-    cmplx(INFINITYd, INFINITYd),
-    cmplx(NANd, 2.02),
-    cmplx(4.42, NANd),
-    cmplx(NANd, NANd),
-    cmplx(NANd, INFINITYd),
-    cmplx(INFINITYd, NANd),
-    cmplx(NANd, INFINITYd),
-    cmplx(INFINITYd, NANd),
-};
-
 template <> const char *test_cases<test_abs>::test_name = "abs test";
 
 // test_arg
-template <>
-vector<cmplx<double>> test_cases<test_arg>::std_test_values = {
-    cmplx(1, 1),
-    cmplx(-1, 1),
-    cmplx(1, -1),
-    cmplx(-1, -1),
-    cmplx(INFINITYd, 2.02),
-    cmplx(4.42, INFINITYd),
-    cmplx(INFINITYd, INFINITYd),
-    cmplx(NANd, 2.02),
-    cmplx(4.42, NANd),
-    cmplx(NANd, NANd),
-    cmplx(NANd, INFINITYd),
-    cmplx(INFINITYd, NANd),
-    cmplx(NANd, INFINITYd),
-    cmplx(INFINITYd, NANd),
-};
-
 template <> const char *test_cases<test_arg>::test_name = "arg test";
 
 // test_norm
