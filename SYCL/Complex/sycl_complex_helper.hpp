@@ -33,6 +33,29 @@ template <> const char *get_typename<sycl::half>() { return "sycl::half"; }
 
 // Helper to test each complex specilization
 template <template <typename> typename action, typename... argsT>
+bool test_valid_types(sycl::queue &Q, argsT... args) {
+  bool test_passes = true;
+
+  if (Q.get_device().has(sycl::aspect::fp64)) {
+    action<double> test;
+    test_passes &= test(Q, args...);
+  }
+
+  {
+    action<float> test;
+    test_passes &= test(Q, args...);
+  }
+
+  if (Q.get_device().has(sycl::aspect::fp16)) {
+    action<sycl::half> test;
+    test_passes &= test(Q, args...);
+  }
+
+  return test_passes;
+}
+
+// Overload for host only tests
+template <template <typename> typename action, typename... argsT>
 bool test_valid_types(argsT... args) {
   bool test_passes = true;
 

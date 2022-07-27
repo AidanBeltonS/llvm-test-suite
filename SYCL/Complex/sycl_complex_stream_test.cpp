@@ -1,8 +1,8 @@
-// RUN: %clangxx -fsycl -fsycl-targets=%sycl_triple %s -o %t.out
-// RUN: %HOST_RUN_PLACEHOLDER %t.out %HOST_CHECK_PLACEHOLDER
-// RUN: %CPU_RUN_PLACEHOLDER %t.out %CPU_CHECK_PLACEHOLDER
-// RUN: %GPU_RUN_PLACEHOLDER %t.out %GPU_CHECK_PLACEHOLDER
-// RUN: %ACC_RUN_PLACEHOLDER %t.out %ACC_CHECK_PLACEHOLDER
+// RUN: %clangxx -fsycl -fsycl-targets=%sycl_triple -fsycl-device-code-split=per_kernel %s -o %t.out
+// RUN: %HOST_RUN_PLACEHOLDER %t.out %HOST_CHECK_PLACEHOLDER -check-prefix=CHECK-ALL-TYPES
+// RUN: %CPU_RUN_PLACEHOLDER %t.out %CPU_CHECK_PLACEHOLDER -check-prefix=CHECK-IGNORE-FP16
+// RUN: %GPU_RUN_PLACEHOLDER %t.out %GPU_CHECK_PLACEHOLDER -check-prefix=CHECK-ALL-TYPES
+// RUN: %ACC_RUN_PLACEHOLDER %t.out %ACC_CHECK_PLACEHOLDER -check-prefix=CHECK-ALL-TYPES
 
 #include "sycl_complex_helper.hpp"
 
@@ -60,13 +60,16 @@ int main() {
 
   bool test_passes = true;
 
-  // CHECK-COUNT-3: (1.5,-1)
+  // CHECK-ALL-TYPES-COUNT-3: (1.5,-1)
+  // CHECK-IGNORE-FP16-COUNT-2: (1.5,-1)
   test_passes &=
       test_valid_types<test_sycl_stream_operator>(Q, cmplx(1.5, -1.0));
-  // CHECK-COUNT-3: (inf,inf)
+  // CHECK-ALL-TYPES-COUNT-3: (inf,inf)
+  // CHECK-IGNORE-FP16-COUNT-2: (inf,inf)
   test_passes &=
       test_valid_types<test_sycl_stream_operator>(Q, cmplx(INFINITY, INFINITY));
-  // CHECK-COUNT-3: (nan,nan)
+  // CHECK-ALL-TYPES-COUNT-3: (nan,nan)
+  // CHECK-IGNORE-FP16-COUNT-2: (nan,nan)
   test_passes &=
       test_valid_types<test_sycl_stream_operator>(Q, cmplx(NAN, NAN));
 
