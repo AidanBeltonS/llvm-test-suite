@@ -9,8 +9,8 @@ using namespace sycl::ext::oneapi;
 
 #define SYCL_CPLX_TOL_ULP 5
 
-constexpr double INFINITYd(INFINITY);
-constexpr double NANd(NAN);
+constexpr double INFINITYd(std::numeric_limits<double>::infinity());
+constexpr double NANd(std::numeric_limits<double>::quiet_NaN());
 
 template <typename T = double> struct cmplx {
   cmplx(T real, T imag) : re(real), im(imag) {}
