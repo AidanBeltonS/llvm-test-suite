@@ -1,5 +1,5 @@
 // RUN: %clangxx -fsycl -fsycl-targets=%sycl_triple -fsycl-device-code-split=per_kernel %s -o %t.out
-// RUN: %HOST_RUN_PLACEHOLDER %t.out %HOST_CHECK_PLACEHOLDER -check-prefix=CHECK-ALL-TYPES
+// RUN: %HOST_RUN_PLACEHOLDER %t.out %HOST_CHECK_PLACEHOLDER -check-prefix=CHECK-IGNORE-FP64-FP16
 // RUN: %CPU_RUN_PLACEHOLDER %t.out %CPU_CHECK_PLACEHOLDER -check-prefix=CHECK-IGNORE-FP16
 // RUN: %GPU_RUN_PLACEHOLDER %t.out %GPU_CHECK_PLACEHOLDER -check-prefix=CHECK-ALL-TYPES
 // RUN: %ACC_RUN_PLACEHOLDER %t.out %ACC_CHECK_PLACEHOLDER -check-prefix=CHECK-ALL-TYPES
@@ -12,12 +12,13 @@ template <typename T> struct test_sycl_stream_operator {
     cplx_out[0] = experimental::complex<T>(init.re, init.im);
 
     Q.submit([&](sycl::handler &CGH) {
-      sycl::stream Out(512, 20, CGH);
-      CGH.parallel_for<>(sycl::range<1>(1), [=](sycl::id<1> idx) {
-        Out << cplx_out[idx] << sycl::endl;
-      });
-    });
+       sycl::stream Out(512, 20, CGH);
+       CGH.parallel_for<>(sycl::range<1>(1), [=](sycl::id<1> idx) {
+         Out << cplx_out[idx] << sycl::endl;
+       });
+     }).wait();
 
+    sycl::free(cplx_out, Q);
     return true;
   }
 };
@@ -62,14 +63,17 @@ int main() {
 
   // CHECK-ALL-TYPES-COUNT-3: (1.5,-1)
   // CHECK-IGNORE-FP16-COUNT-2: (1.5,-1)
+  // CHECK-IGNORE-FP64-FP16-COUNT-1: (1.5,-1)
   test_passes &=
       test_valid_types<test_sycl_stream_operator>(Q, cmplx(1.5, -1.0));
   // CHECK-ALL-TYPES-COUNT-3: (inf,inf)
   // CHECK-IGNORE-FP16-COUNT-2: (inf,inf)
+  // CHECK-IGNORE-FP64-FP16-COUNT-1: (inf,inf)
   test_passes &=
       test_valid_types<test_sycl_stream_operator>(Q, cmplx(INFINITY, INFINITY));
   // CHECK-ALL-TYPES-COUNT-3: (nan,nan)
   // CHECK-IGNORE-FP16-COUNT-2: (nan,nan)
+  // CHECK-IGNORE-FP64-FP16-COUNT-1: (nan,nan)
   test_passes &=
       test_valid_types<test_sycl_stream_operator>(Q, cmplx(NAN, NAN));
 
