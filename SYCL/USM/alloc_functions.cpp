@@ -12,7 +12,7 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include <sycl.hpp>
+#include <sycl/sycl.hpp>
 
 #include <iostream>
 #include <tuple>

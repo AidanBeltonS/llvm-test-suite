@@ -5,7 +5,7 @@
 // RUN: %ACC_RUN_PLACEHOLDER %t.out
 // RUN: %GPU_RUN_PLACEHOLDER %t.out
 // XFAIL: cuda || hip
-#include <CL/sycl.hpp>
+#include <sycl/sycl.hpp>
 
 #include <cassert>
 #include <cstddef>
@@ -14,7 +14,7 @@
 
 // This test checks that the command graph cleanup works properly when
 // invoked from multiple threads.
-using namespace cl::sycl;
+using namespace sycl;
 
 class Foo;
 

@@ -7,12 +7,12 @@
 // RUN: %GPU_RUN_PLACEHOLDER %t.out %GPU_CHECK_PLACEHOLDER
 // RUN: %ACC_RUN_PLACEHOLDER %t.out %ACC_CHECK_PLACEHOLDER
 
-#include <CL/sycl.hpp>
+#include <sycl/sycl.hpp>
 
 #include <cstdint>
 #include <iostream>
 
-using namespace cl::sycl;
+using namespace sycl;
 
 // According to OpenCL C spec, the format string must be in constant address
 // space
@@ -67,10 +67,10 @@ int main() {
         // CHECK-NEXT: -33.4
 
         // Vectors
-        cl::sycl::vec<int, 4> v4{5, 6, 7, 8};
+        sycl::vec<int, 4> v4{5, 6, 7, 8};
 #ifdef __SYCL_DEVICE_ONLY__
         // On device side, vectors can be printed via native OpenCL types:
-        using ocl_int4 = cl::sycl::vec<int, 4>::vector_t;
+        using ocl_int4 = sycl::vec<int, 4>::vector_t;
         {
           static const CONSTANT char format[] = "%v4d\n";
           ext::oneapi::experimental::printf(format, (ocl_int4)v4);

@@ -1,16 +1,17 @@
-// UNSUPPORTED: cuda || hip
+// UNSUPPORTED: hip
 // RUN: %clangxx -fsycl -fsycl-targets=%sycl_triple -fsycl-device-code-split=per_kernel %s -I . -o %t.out
 // RUN: %CPU_RUN_PLACEHOLDER %t.out
 // RUN: %GPU_RUN_PLACEHOLDER %t.out
 // RUN: %ACC_RUN_PLACEHOLDER %t.out
 
 #include "support.h"
-#include <CL/sycl.hpp>
 #include <algorithm>
 #include <cassert>
 #include <complex>
+#include <iostream>
 #include <limits>
 #include <numeric>
+#include <sycl/sycl.hpp>
 using namespace sycl;
 
 template <typename SpecializationKernelName, typename InputContainer,

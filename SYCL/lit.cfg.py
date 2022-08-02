@@ -100,12 +100,19 @@ elif platform.system() == "Linux":
     config.substitutions.append( ('%obj_ext', '.o') )
 config.substitutions.append( ('%sycl_include',  config.sycl_include ) )
 
+# Intel GPU FAMILY availability
+if lit_config.params.get('gpu-intel-gen9', False):
+    config.available_features.add('gpu-intel-gen9')
+if lit_config.params.get('gpu-intel-gen11', False):
+    config.available_features.add('gpu-intel-gen11')
+if lit_config.params.get('gpu-intel-gen12', False):
+    config.available_features.add('gpu-intel-gen12')
+
+# Intel GPU DEVICE availability
 if lit_config.params.get('gpu-intel-dg1', False):
     config.available_features.add('gpu-intel-dg1')
-
 if lit_config.params.get('gpu-intel-dg2', False):
     config.available_features.add('gpu-intel-dg2')
-
 if lit_config.params.get('gpu-intel-pvc', False):
     config.available_features.add('gpu-intel-pvc')
 
@@ -124,6 +131,7 @@ if sp[0] == 0:
     cl_options=True
     config.available_features.add('cl_options')
 
+# Check for Level Zero SDK
 check_l0_file='l0_include.cpp'
 with open(check_l0_file, 'w') as fp:
     fp.write('#include<level_zero/ze_api.h>\n')
@@ -145,6 +153,29 @@ if sp[0] == 0:
 else:
     config.substitutions.append( ('%level_zero_options', '') )
 
+# Check for CUDA SDK
+check_cuda_file='cuda_include.cpp'
+with open(check_cuda_file, 'w') as fp:
+    fp.write('#include <cuda.h>\n')
+    fp.write('int main() { CUresult r = cuInit(0); return r; }')
+
+config.cuda_libs_dir=lit_config.params.get("cuda_libs_dir", config.cuda_libs_dir)
+config.cuda_include=lit_config.params.get("cuda_include", (config.cuda_include if config.cuda_include else config.sycl_include))
+
+cuda_options=cuda_options = (' -L'+config.cuda_libs_dir if config.cuda_libs_dir else '')+' -lcuda '+' -I'+config.cuda_include
+if cl_options:
+    cuda_options = ' '+( config.cuda_libs_dir+'/cuda.lib ' if config.cuda_libs_dir else 'cuda.lib')+' /I'+config.cuda_include
+
+config.substitutions.append( ('%cuda_options', cuda_options) )
+
+sp = subprocess.getstatusoutput(config.dpcpp_compiler+' -fsycl  ' + check_cuda_file + cuda_options)
+if sp[0] == 0:
+    config.available_features.add('cuda_dev_kit')
+    config.substitutions.append( ('%cuda_options', cuda_options) )
+else:
+    config.substitutions.append( ('%cuda_options', '') )
+
+# Check for OpenCL ICD
 if config.opencl_libs_dir:
     if cl_options:
         config.substitutions.append( ('%opencl_lib',  ' '+config.opencl_libs_dir+'/OpenCL.lib') )
