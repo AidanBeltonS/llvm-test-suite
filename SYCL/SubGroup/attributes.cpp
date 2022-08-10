@@ -14,13 +14,13 @@
 
 #include "helper.hpp"
 
-#include <CL/sycl.hpp>
+#include <sycl/sycl.hpp>
 
 #define KERNEL_FUNCTOR_WITH_SIZE(SIZE)                                         \
   class KernelFunctor##SIZE {                                                  \
   public:                                                                      \
     [[intel::reqd_sub_group_size(SIZE)]] void                                  \
-    operator()(cl::sycl::nd_item<1> Item) const {                              \
+    operator()(sycl::nd_item<1> Item) const {                                  \
       const auto GID = Item.get_global_id();                                   \
     }                                                                          \
   };
@@ -44,10 +44,10 @@ inline uint32_t flp2(uint32_t X) {
   return X - (X >> 1);
 }
 
-template <typename Fn> inline void submit(cl::sycl::queue &Q) {
-  Q.submit([](cl::sycl::handler &cgh) {
+template <typename Fn> inline void submit(sycl::queue &Q) {
+  Q.submit([](sycl::handler &cgh) {
     Fn F;
-    cgh.parallel_for(cl::sycl::nd_range<1>{64, 16}, F);
+    cgh.parallel_for(sycl::nd_range<1>{64, 16}, F);
   });
 }
 
@@ -77,9 +77,9 @@ int main() {
 
       std::cout << "Run for " << ReqdSize << " required workgroup size.\n";
 
-      // Store the `cl::sycl::kernel` into a vector because `cl::sycl::kernel`
+      // Store the `sycl::kernel` into a vector because `sycl::kernel`
       // doesn't have default constructor
-      std::vector<cl::sycl::kernel> TheKernel;
+      std::vector<sycl::kernel> TheKernel;
 
       switch (ReqdSize) {
       case 64: {
@@ -140,13 +140,13 @@ int main() {
       }
       default:
         throw feature_not_supported("sub-group size is not supported",
-                                    PI_INVALID_OPERATION);
+                                    PI_ERROR_INVALID_OPERATION);
       }
 
       auto Kernel = TheKernel[0];
 
-      auto Res = Kernel.get_sub_group_info<
-          cl::sycl::info::kernel_sub_group::compile_sub_group_size>(Device);
+      auto Res = Kernel.get_info<
+          sycl::info::kernel_device_specific::compile_sub_group_size>(Device);
 
       exit_if_not_equal<size_t>(Res, ReqdSize, "compile_sub_group_size");
     }

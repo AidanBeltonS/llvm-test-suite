@@ -16,13 +16,13 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include <CL/sycl.hpp>
+#include <sycl/sycl.hpp>
 
 #include <cassert>
 #include <iostream>
 #include <numeric>
 
-using namespace cl::sycl;
+using namespace sycl;
 
 template <typename T> struct point {
   point(const point &rhs) = default;

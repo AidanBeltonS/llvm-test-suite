@@ -10,8 +10,8 @@
 // All Level-Zero specific code is kept here and the common part that can be
 // re-used by other backends is kept in online_compiler_common.hpp file.
 
-#include <CL/sycl.hpp>
 #include <sycl/ext/intel/online_compiler.hpp>
+#include <sycl/sycl.hpp>
 
 #include <vector>
 
@@ -35,8 +35,10 @@ sycl::kernel getSYCLKernelWithIL(sycl::queue &Queue,
 
   sycl::context Context = Queue.get_context();
   sycl::device Device = Queue.get_device();
-  auto ZeDevice = Device.get_native<sycl::backend::ext_oneapi_level_zero>();
-  auto ZeContext = Context.get_native<sycl::backend::ext_oneapi_level_zero>();
+  auto ZeDevice =
+      sycl::get_native<sycl::backend::ext_oneapi_level_zero>(Device);
+  auto ZeContext =
+      sycl::get_native<sycl::backend::ext_oneapi_level_zero>(Context);
 
   ze_module_build_log_handle_t ZeBuildLog;
   ze_module_handle_t ZeModule;

@@ -6,16 +6,13 @@
 // implementation. Enable testing when implementation is fixed.
 // RUNx: %ACC_RUN_PLACEHOLDER %t.out
 
-// TODO: test disabled due to sporadic fails in level_zero:gpu RT.
-// UNSUPPORTED: linux && level_zero
-
 // This test performs basic checks of parallel_for(range<3>, reduction, func)
 // with reductions initialized with 1-dimensional discard_write accessor
 // accessing 1 element buffer.
 
 #include "reduction_range_scalar.hpp"
 
-using namespace cl::sycl;
+using namespace sycl;
 
 int NumErrors = 0;
 

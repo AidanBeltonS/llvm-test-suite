@@ -12,14 +12,14 @@
 
 #include "../esimd_test_utils.hpp"
 
-#include <CL/sycl.hpp>
 #include <algorithm>
 #include <cmath>
 #include <numeric>
 #include <sycl/ext/intel/esimd.hpp>
+#include <sycl/sycl.hpp>
 
 int main() {
-  using namespace cl::sycl;
+  using namespace sycl;
   using namespace sycl::ext::intel::esimd;
   using namespace sycl::ext::intel::experimental::esimd;
   auto size = size_t{128};

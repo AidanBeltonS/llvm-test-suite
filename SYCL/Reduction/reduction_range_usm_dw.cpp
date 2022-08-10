@@ -7,16 +7,13 @@
 // supported on host device.` on Nvidia.
 // XFAIL: hip_nvidia
 
-// TODO: test disabled due to sporadic fails in level_zero:gpu RT.
-// UNSUPPORTED: linux && level_zero
-
 #include "reduction_range_scalar.hpp"
 
 // This test performs basic checks of parallel_for(range<1>, reduction, func)
 // with reductions initialized with 1-dimensional discard_write accessor
 // accessing 1 element buffer.
 
-using namespace cl::sycl;
+using namespace sycl;
 
 int NumErrors = 0;
 

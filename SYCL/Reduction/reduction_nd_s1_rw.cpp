@@ -6,16 +6,13 @@
 // `Group algorithms are not supported on host device.` on Nvidia.
 // XFAIL: hip_nvidia
 
-// TODO: test disabled due to sporadic fails in level_zero:gpu RT.
-// UNSUPPORTED: linux && level_zero
-
 // This test performs basic checks of parallel_for(nd_range, reduction, func)
 // with reductions initialized with 1-dimensional read_write accessor
 // accessing 1 element buffer.
 
 #include "reduction_nd_range_scalar.hpp"
 
-using namespace cl::sycl;
+using namespace sycl;
 
 int NumErrors = 0;
 

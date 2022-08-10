@@ -6,10 +6,15 @@
 // `Group algorithms are not supported on host device.` on Nvidia.
 // XFAIL: hip_nvidia
 
+// Disable this test on HIP/AMD until this issue has been fixed:
+// https://github.com/intel/llvm/issues/6409
+//
+// UNSUPPORTED: hip
+
 // This test performs basic checks of reductions initialized with a pack
 // containing at least one sycl::span
 
-#include <CL/sycl.hpp>
+#include <sycl/sycl.hpp>
 using namespace sycl;
 
 int NumErrors = 0;
