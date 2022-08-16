@@ -103,6 +103,8 @@ vector<cmplx<double>> test_cases<test_atan>::std_test_values = {
     cmplx(NANd, INFINITYd),
 };
 
+// MSVC complex handles some error codes differently
+// So check against reference value
 template <>
 vector<tuple<cmplx<double>, cmplx<double>>>
     test_cases<test_atan>::comp_test_values = {
@@ -132,6 +134,8 @@ vector<cmplx<double>> test_cases<test_atanh>::std_test_values = {
     cmplx(INFINITYd, NANd),
 };
 
+// MSVC complex handles some error codes differently
+// So check against reference value
 template <>
 vector<tuple<cmplx<double>, cmplx<double>>>
     test_cases<test_atanh>::comp_test_values = {
@@ -178,16 +182,18 @@ vector<cmplx<double>> test_cases<test_tan>::std_test_values = {
     cmplx(-1, -1),
     cmplx(INFINITYd, 2.02),
     cmplx(4.42, INFINITYd),
-    cmplx(INFINITYd, INFINITYd),
     cmplx(NANd, 2.02),
     cmplx(4.42, NANd),
     cmplx(NANd, NANd),
     cmplx(INFINITYd, NANd),
 };
 
+// MSVC complex handles some error codes differently
+// So check against reference value
 template <>
 vector<tuple<cmplx<double>, cmplx<double>>>
     test_cases<test_tan>::comp_test_values = {
+        tuple(cmplx(INFINITYd, INFINITYd), cmplx(0.0, 1.0)),
         tuple(cmplx(NANd, INFINITYd), cmplx(0.0, 1.0))};
 
 // test_tanh
@@ -201,16 +207,18 @@ vector<cmplx<double>> test_cases<test_tanh>::std_test_values = {
     cmplx(-1, -1),
     cmplx(INFINITYd, 2.02),
     cmplx(4.42, INFINITYd),
-    cmplx(INFINITYd, INFINITYd),
     cmplx(NANd, 2.02),
     cmplx(4.42, NANd),
     cmplx(NANd, NANd),
     cmplx(NANd, INFINITYd),
 };
 
+// MSVC complex handles some error codes differently
+// So check against reference value
 template <>
 vector<tuple<cmplx<double>, cmplx<double>>>
     test_cases<test_tanh>::comp_test_values = {
+        tuple(cmplx(INFINITYd, INFINITYd), cmplx(1.0, 0.0)),
         tuple(cmplx(INFINITYd, NANd), cmplx(1.0, 0.0))};
 
 // test_abs
