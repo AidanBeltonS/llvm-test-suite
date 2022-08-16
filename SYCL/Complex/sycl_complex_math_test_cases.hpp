@@ -1,4 +1,5 @@
 using std::pair;
+using std::tuple;
 using std::vector;
 
 // Forward decleration of tests
@@ -34,6 +35,7 @@ template <typename T> class test_polar;
 template <template <typename> typename test_struct> struct test_cases {
   // Default test cases
   static vector<cmplx<double>> std_test_values;
+  static vector<tuple<cmplx<double>, cmplx<double>>> comp_test_values;
 
   static const char *test_name;
 
@@ -42,6 +44,12 @@ template <template <typename> typename test_struct> struct test_cases {
 
     for (auto &test_value : std_test_values) {
       test_passes &= test_valid_types<test_struct>(Q, test_value);
+    }
+
+    for (auto &test_tuple : comp_test_values) {
+      test_passes &= test_valid_types<test_struct>(Q, get<0>(test_tuple),
+                                                   get<1>(test_tuple),
+                                                   /*use_ref*/ true);
     }
 
     if (!test_passes)
@@ -65,9 +73,11 @@ vector<cmplx<double>> test_cases<test_struct>::std_test_values = {
     cmplx(NANd, NANd),
     cmplx(NANd, INFINITYd),
     cmplx(INFINITYd, NANd),
-    cmplx(NANd, INFINITYd),
-    cmplx(INFINITYd, NANd),
 };
+
+template <template <typename> typename test_struct>
+vector<tuple<cmplx<double>, cmplx<double>>>
+    test_cases<test_struct>::comp_test_values = {};
 
 // test_acos
 template <> const char *test_cases<test_acos>::test_name = "acos test";
@@ -78,6 +88,26 @@ template <> const char *test_cases<test_asin>::test_name = "asin test";
 // test_atan
 template <> const char *test_cases<test_atan>::test_name = "atan test";
 
+template <>
+vector<cmplx<double>> test_cases<test_atan>::std_test_values = {
+    cmplx(1, 1),
+    cmplx(-1, 1),
+    cmplx(1, -1),
+    cmplx(-1, -1),
+    cmplx(INFINITYd, 2.02),
+    cmplx(4.42, INFINITYd),
+    cmplx(INFINITYd, INFINITYd),
+    cmplx(NANd, 2.02),
+    cmplx(4.42, NANd),
+    cmplx(NANd, NANd),
+    cmplx(NANd, INFINITYd),
+};
+
+template <>
+vector<tuple<cmplx<double>, cmplx<double>>>
+    test_cases<test_atan>::comp_test_values = {
+        tuple(cmplx(INFINITYd, NANd), cmplx(PI/2.0, 0.0))};
+
 // test_acosh
 template <> const char *test_cases<test_acosh>::test_name = "acosh test";
 
@@ -86,6 +116,26 @@ template <> const char *test_cases<test_asinh>::test_name = "asinh test";
 
 // test_atanh
 template <> const char *test_cases<test_atanh>::test_name = "atanh test";
+
+template <>
+vector<cmplx<double>> test_cases<test_atanh>::std_test_values = {
+    cmplx(1, 1),
+    cmplx(-1, 1),
+    cmplx(1, -1),
+    cmplx(-1, -1),
+    cmplx(INFINITYd, 2.02),
+    cmplx(4.42, INFINITYd),
+    cmplx(INFINITYd, INFINITYd),
+    cmplx(NANd, 2.02),
+    cmplx(4.42, NANd),
+    cmplx(NANd, NANd),
+    cmplx(INFINITYd, NANd),
+};
+
+template <>
+vector<tuple<cmplx<double>, cmplx<double>>>
+    test_cases<test_atanh>::comp_test_values = {
+        tuple(cmplx(NANd, INFINITYd), cmplx(0.0, PI/2.0))};
 
 // test_conj
 template <> const char *test_cases<test_conj>::test_name = "conj test";
@@ -120,8 +170,48 @@ template <> const char *test_cases<test_sqrt>::test_name = "sqrt test";
 // test_tan
 template <> const char *test_cases<test_tan>::test_name = "tan test";
 
+template <>
+vector<cmplx<double>> test_cases<test_tan>::std_test_values = {
+    cmplx(1, 1),
+    cmplx(-1, 1),
+    cmplx(1, -1),
+    cmplx(-1, -1),
+    cmplx(INFINITYd, 2.02),
+    cmplx(4.42, INFINITYd),
+    cmplx(INFINITYd, INFINITYd),
+    cmplx(NANd, 2.02),
+    cmplx(4.42, NANd),
+    cmplx(NANd, NANd),
+    cmplx(INFINITYd, NANd),
+};
+
+template <>
+vector<tuple<cmplx<double>, cmplx<double>>>
+    test_cases<test_tan>::comp_test_values = {
+        tuple(cmplx(NANd, INFINITYd), cmplx(0.0, 1.0))};
+
 // test_tanh
 template <> const char *test_cases<test_tanh>::test_name = "tanh test";
+
+template <>
+vector<cmplx<double>> test_cases<test_tanh>::std_test_values = {
+    cmplx(1, 1),
+    cmplx(-1, 1),
+    cmplx(1, -1),
+    cmplx(-1, -1),
+    cmplx(INFINITYd, 2.02),
+    cmplx(4.42, INFINITYd),
+    cmplx(INFINITYd, INFINITYd),
+    cmplx(NANd, 2.02),
+    cmplx(4.42, NANd),
+    cmplx(NANd, NANd),
+    cmplx(NANd, INFINITYd),
+};
+
+template <>
+vector<tuple<cmplx<double>, cmplx<double>>>
+    test_cases<test_tanh>::comp_test_values = {
+        tuple(cmplx(INFINITYd, NANd), cmplx(1.0, 0.0))};
 
 // test_abs
 template <> const char *test_cases<test_abs>::test_name = "abs test";

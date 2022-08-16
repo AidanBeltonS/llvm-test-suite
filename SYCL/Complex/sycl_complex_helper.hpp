@@ -9,6 +9,8 @@ using namespace sycl::ext::oneapi;
 
 #define SYCL_CPLX_TOL_ULP 5
 
+#define PI 3.14159265358979323846
+
 constexpr double INFINITYd(std::numeric_limits<double>::infinity());
 constexpr double NANd(std::numeric_limits<double>::quiet_NaN());
 

@@ -11,7 +11,8 @@
 
 #define TEST_MATH_OP_TYPE(math_func)                                           \
   template <typename T> struct test_##math_func {                              \
-    bool operator()(sycl::queue &Q, cmplx<T> init) {                           \
+    bool operator()(sycl::queue &Q, cmplx<T> init,                             \
+                    cmplx<T> ref = cmplx<T>(0, 0), bool use_ref = false) {     \
       bool pass = true;                                                        \
                                                                                \
       auto std_in = init_std_complex(init.re, init.im);                        \
@@ -20,8 +21,9 @@
       auto *cplx_out = sycl::malloc_shared<experimental::complex<T>>(1, Q);    \
                                                                                \
       /*Get std::complex output*/                                              \
-      std::complex<T> std_out;                                                 \
-      std_out = std::math_func(std_in);                                        \
+      std::complex<T> std_out{ref.re, ref.im};                                 \
+      if (!use_ref)                                                            \
+        std_out = std::math_func(std_in);                                      \
                                                                                \
       /*Check cplx::complex output from device*/                               \
       Q.single_task([=]() {                                                    \
@@ -66,7 +68,8 @@ TEST_MATH_OP_TYPE(tanh)
 
 #define TEST_MATH_OP_TYPE(math_func)                                           \
   template <typename T> struct test_##math_func {                              \
-    bool operator()(sycl::queue &Q, cmplx<T> init) {                           \
+    bool operator()(sycl::queue &Q, cmplx<T> init,                             \
+                    cmplx<T> ref = cmplx<T>(0, 0), bool use_ref = false) {     \
       bool pass = true;                                                        \
                                                                                \
       auto std_in = init_std_complex(init.re, init.im);                        \
@@ -75,7 +78,9 @@ TEST_MATH_OP_TYPE(tanh)
       auto *cplx_out = sycl::malloc_shared<T>(1, Q);                           \
                                                                                \
       /*Get std::complex output*/                                              \
-      T std_out = std::math_func(std_in);                                      \
+      T std_out = ref.re;                                                      \
+      if (!use_ref)                                                            \
+        std_out = std::math_func(std_in);                                      \
                                                                                \
       /*Check cplx::complex output from device*/                               \
       Q.single_task([=]() {                                                    \
@@ -105,13 +110,16 @@ TEST_MATH_OP_TYPE(norm)
 // The real component is treated as radius rho, and the imaginary component as
 // angular value theta
 template <typename T> struct test_polar {
-  bool operator()(sycl::queue &Q, cmplx<T> init) {
+  bool operator()(sycl::queue &Q, cmplx<T> init, cmplx<T> ref = cmplx<T>(0, 0),
+                  bool use_ref = false) {
     bool pass = true;
 
     auto *cplx_out = sycl::malloc_shared<experimental::complex<T>>(1, Q);
 
     /*Get std::complex output*/
-    std::complex<T> std_out = std::polar(init.re, init.im);
+    std::complex<T> std_out{ref.re, ref.im};
+    if (!use_ref)
+      std_out = std::polar(init.re, init.im);
 
     /*Check cplx::complex output from device*/
     Q.single_task([=]() {
